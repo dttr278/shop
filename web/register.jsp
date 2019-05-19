@@ -71,16 +71,31 @@
                 var x_timer;
                 $("#email").keyup(function (e) {
                     clearTimeout(x_timer);
-                    var email = $(this).val();
+                    var email = $("#email").val();
                     x_timer = setTimeout(function () {
                         check_email_ajax(email);
                     }, 1000);
                 });
-
+                $("#phone").keyup(function (){
+                    var p='([0-9]{8,11})\b';
+                    if($(this).val().match(p)){
+                        this.setCustomValidity('');
+                    }else{
+                        this.setCustomValidity('is not a phone');
+                    }
+                });
                 function check_email_ajax(email) {
                     $("#user-result").html('<img src="img/ajax-loader.gif" />');
+                    var email1=document.getElementById("email");
                     $.post('CheckMailServlet', {'email': email}, function (data) {
-                        $("#user-result").html(data);
+                        if (data == "true") {
+                            $("#user-result").html("<img src=\"img/available.png\" />");
+                            email1.setCustomValidity('');
+                        } else {
+                            $("#user-result").html("<img src=\"img/not-available.png\" />");
+                            email1.setCustomValidity('email is not available');
+                        }
+
                     });
                 }
             });
@@ -89,11 +104,12 @@
     <body>
         <jsp:include page="header.jsp"></jsp:include>
             <h2 style="text-align: center; margin-top: 10px;">Register</h2>
-        <%if (request.getAttribute("error") != null) {%>
-        <p style="color:red"><%=request.getAttribute("error")%></p>
-        <%}%>
-        <form action="UserServlet" method="post" style="height: 45%">
-            <div class="container">
+
+            <form action="UserServlet" method="post" style="height: 45%">
+                <div class="container">
+                <%if (request.getParameter("error") != null) {%>
+                <p style="color:red"><%="Invalid data"%></p>
+                <%}%>
                 <label for="uname"><b>Username</b></label>     
                 <input type="text" style="width:97%" placeholder="" name="username" id="username" required>
                 <label for="psw"><b>Password</b></label>
@@ -102,7 +118,7 @@
                 <input type="text" style="width:97%" placeholder="" name="email" id="email" required>
                 <span id="user-result"></span>
                 <label for="adress"><b>Address</b></label>     
-                <input type="text" style="width:97%" placeholder="" name="adress" id="adress" required>
+                <input type="text" style="width:97%" placeholder="" name="adress" id="adress"  required>
                 <label for="phone"><b>Phone number</b></label>     
                 <input type="text" style="width:97%" placeholder="" name="phone" id="phone" required >
                 <input type="hidden" value="insert" name="command">

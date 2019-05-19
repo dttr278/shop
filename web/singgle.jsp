@@ -15,8 +15,10 @@ Author     : phuong nam
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta property="fb:app_id" content="356830451834317" />
+        <meta property="fb:admins" content="100004320510236"/>
         <title>Electro - HTML Ecommerce Template</title>
 
         <!-- Google font -->
@@ -170,7 +172,7 @@ Author     : phuong nam
                                 <div id="tab1" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p><%=p.getDetail()%></p>
+                                            <pre><%='\t' + p.getDetail()%></pre>
                                         </div>
                                     </div>
                                 </div>
@@ -180,6 +182,32 @@ Author     : phuong nam
                         </div>
                     </div>
                     <!-- /product tab -->
+                    <!-- Comment tab -->
+                    <div class="col-md-12">
+                        <div id="product-tab">
+                            <ul class="tab-nav">
+                                <li class="active"><a data-toggle="tab" href="#tab1">Comment</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <!--                                <div class="form-group row">
+                                                                    <div class="col-sm-10 ">
+                                                                        <textarea class="form-control" rows="2" id="comment" ></textarea> 
+                                                                    </div>
+                                                                    <div class="col-sm-2"> 
+                                                                        <button type="submit" class="btn btn-read btn-lg btn-block" name="btnComment" id="btnComment">
+                                                                            Send
+                                                                        </button>  
+                                                                    </div>
+                                                                </div>  
+                                <div id="fb-root"></div>-->
+                                <div id="fb-root"></div>
+                                <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.3&appId=356830451834317&autoLogAppEvents=1"></script>
+                                <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="100%" data-numposts="5"></div>
+                            </div>
+                            <!-- /product tab content  -->
+                        </div>
+                    </div>
+                    <!-- /Comment tab -->
                 </div>
                 <!-- /row -->
             </div>
@@ -201,8 +229,6 @@ Author     : phuong nam
                     </div>
                     <%
                         for (Product product : pr.getListProductByRelated(p.getId_type())) {
-
-
                     %>
                     <!-- product -->
                     <div class="col-md-3 col-xs-6">
@@ -255,42 +281,6 @@ Author     : phuong nam
         </div>
         <!-- /Section -->
 
-        <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="newsletter">
-                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                            <form>
-                                <input class="input" type="email" placeholder="Enter Your Email">
-                                <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                            </form>
-                            <ul class="newsletter-follow">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
-
-        <!-- /NEWSLETTER -->
         <jsp:include page="footer.jsp"></jsp:include>
 
         <!-- jQuery Plugins -->

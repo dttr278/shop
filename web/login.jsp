@@ -12,7 +12,7 @@
         <meta charset="utf-8">
         <style>
             body {font-family: Arial, Helvetica, sans-serif;}
-/*            form {border: 3px solid #f1f1f1;}*/
+            /*            form {border: 3px solid #f1f1f1;}*/
 
             input[type=text], input[type=password] {
                 width: 100%;
@@ -70,27 +70,28 @@
                     width: 100%;
                 }
             }
-            
+
         </style>
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
             <h3 style="text-align: center; margin-top: 10px;">LOGIN</h3>
             <form action="UserServlet" method="post" style="height: 45%">
-                <%if (request.getAttribute("error") != null) {%>
-                    <p style="color:red"><%=request.getAttribute("error")%></p>
-                <%}%>
+
                 <div class="container">
-                    <label for="email"><b>Email</b></label>
-                    <input type="text"  placeholder="" name="email" id="email"  required>
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="" name="password"  required>
-                    <input type="hidden" value="login" name="command" >
-                    <button class="btn" type="submit" style="color: white;">Login</button>
-                    <p><a href="register.jsp" style="color: blue">Register?</a></p>     
-                </div>
-                   
-            </form>
+                <%if (request.getParameter("error") != null) {%>
+                <p style="color:red"><%="Email or password not corected!"%></p>
+                <%}%>
+                <label for="email"><b>Email</b></label>
+                <input type="text"  placeholder="" name="email" id="email"  required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="" name="password"  required>
+                <input type="hidden" value="login" name="command" >
+                <button class="btn" type="submit" style="color: white;">Login</button>
+                <p><a href="register.jsp" style="color: blue">Register?</a></p>     
+            </div>
+
+        </form>
         <jsp:include page="footer.jsp"></jsp:include>
         <!-- jQuery Plugins -->
         <script src="js/jquery.min.js"></script>

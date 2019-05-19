@@ -91,7 +91,6 @@ public class UserDao {
         if(role==null||role.isEmpty())
             role="customer";
         connect.close();
-        if(role.isEmpty())role="customer";
         return role;
     }
 
@@ -234,7 +233,7 @@ public class UserDao {
         return id;
     }
 
-    public User login(String email, String password) throws SQLException {
+    public static User login(String email, String password) throws SQLException {
         Connection con = DBConnect.getConnecttion();
         String sql = "SELECT * FROM users WHERE email='" + email + "' AND password='" + password + "'";
         PreparedStatement ps = con.prepareStatement(sql);

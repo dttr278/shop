@@ -96,8 +96,8 @@ public class UserServlet extends HttpServlet {
                         response.addCookie(cookie);
                         url = "home.jsp";
                     } else {
-                        request.setAttribute("error", "Error email or password!");
-                        url = "login.jsp";
+//                        request.setAttribute("error", "Error email or password!");
+                        url = "login.jsp?error=Error";
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);

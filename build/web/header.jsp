@@ -77,8 +77,10 @@
                                  aria-labelledby="navbarDropdown" >
                                 <div style="padding-left: 1rem ">
                                     <a style="display: block;width: 100%;" class="dropdown-item" href="myaccount.jsp"> My account </a>
+                                    <%if (("customer").equals(userDao.getRole(users.getId()))) {%>
                                     <a style="display: block;width: 100%;" class="dropdown-item" href="biillsOfUser.jsp">My bills </a>
-                                    <a style="display: block;width: 100%;" class="dropdown-item" href="#">Change password </a>
+                                    <%}%>
+                                    <a style="display: block;width: 100%;" class="dropdown-item" href="changepassword.jsp">Change password </a>
                                 </div>
                                 <hr style="margin: 3px"/>
                                 <%if (("admin").equals(userDao.getRole(users.getId()))) {%>
@@ -87,7 +89,7 @@
                                     <a style="display: block;width: 100%;" class="dropdown-item" href="usermanagement.jsp">Users </a>
                                 </div>
                                 <%}%>
-                                <%if (("employee").equals(userDao.getRole(users.getId()))||("admin").equals(userDao.getRole(users.getId()))) {%>
+                                <%if (("employee").equals(userDao.getRole(users.getId())) || ("admin").equals(userDao.getRole(users.getId()))) {%>
                                 <div style="padding-left: 1rem ">
                                     <a style="display: block;width: 100%;" class="dropdown-item" href="productmanagement.jsp">Products </a>
                                     <a  style="display: block;width: 100%;" class="dropdown-item" href="billmanagement.jsp">Bills </a>
@@ -145,14 +147,14 @@
                         <!-- ACCOUNT -->
                         <div class="col-md-3 clearfix">
                             <div class="header-ctn">
-<!--                                 Wishlist 
-                                <div>
-                                    <a href="#">
-                                        <i class="fa fa-heart-o"></i>
-                                        <span>WishList</span>
-                                    </a>
-                                </div>
-                                 /Wishlist -->
+                                <!--                                 Wishlist 
+                                                                <div>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-heart-o"></i>
+                                                                        <span>WishList</span>
+                                                                    </a>
+                                                                </div>
+                                                                 /Wishlist -->
 
                                 <!-- Cart -->
                                 <div class="dropdown">

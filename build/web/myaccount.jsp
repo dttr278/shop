@@ -131,18 +131,18 @@
                                 <%=users.getEmail()%>
                             </p>
                         </div>
-                        <form>
+                            <form action="ChangeInfo" method="post">
                             <div class="item"> 
                                 <label class="title">address :</label>
                                 <p class="content">
-                                    <input id="address" name="address" disabled="true" value="<%=users.getAddress() == null ? "" : users.getAddress()%>">
+                                    <input id="address" name="address" disabled="true" value="<%=users.getAddress() == null ? "" : users.getAddress()%>" required>
                                     <input class="btnText" onclick="enableEditAddress(this)" type="button" value="change address" name="address_change" />
                                 </p>
                             </div>
                             <div class="item"> 
                                 <label class="title">phone :</label>
                                 <p class="content">
-                                    <input  id="phone" name="phone" disabled="true" value="<%=users.getPhone() == null ? "" : users.getPhone()%>">
+                                    <input  id="phone" name="phone" disabled="true" value="<%=users.getPhone() == null ? "" : users.getPhone()%>" required>
                                     <input class="btnText" onclick="enableEditPhone(this)" type="button" value="change phone" name="phone_change" />
                                 </p>
                             </div>

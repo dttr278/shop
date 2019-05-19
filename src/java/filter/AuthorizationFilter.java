@@ -72,6 +72,13 @@ public class AuthorizationFilter implements Filter {
                     access = false;
                 }
                 break;
+            case "/checkout.jsp":
+                 if ("customer".equalsIgnoreCase(role)) {
+                    access = true;
+                } else {
+                    access = false;
+                }
+                break;
             default:
                 break;
         }
