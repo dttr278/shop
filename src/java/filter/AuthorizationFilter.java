@@ -56,6 +56,8 @@ public class AuthorizationFilter implements Filter {
             case "/DeleteProduct":
             case "/billmanagement.jsp":
             case "/DeleteBill":
+            case "/categories.jsp":
+            case "/categori.jsp":
                 if ("admin".equalsIgnoreCase(role) || "employee".equalsIgnoreCase(role)) {
                     access = true;
                 } else {
@@ -73,7 +75,7 @@ public class AuthorizationFilter implements Filter {
                 }
                 break;
             case "/checkout.jsp":
-                 if ("customer".equalsIgnoreCase(role)) {
+                if ("customer".equalsIgnoreCase(role)) {
                     access = true;
                 } else {
                     access = false;
@@ -87,7 +89,7 @@ public class AuthorizationFilter implements Filter {
         } else if (access) {
             chain.doFilter(request, response);
         } else {
-            httpServletResponse.sendRedirect("forbidden.jsp");
+            httpServletResponse.sendRedirect("login.jsp");
         }
     }
 

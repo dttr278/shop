@@ -116,6 +116,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
+                                <th scope="col" style="width: 10em;">Amount</th>
                                 <th scope="col" style="width: 10em;">Action</th>
                             </tr>
                         </thead>
@@ -125,6 +126,9 @@
                                 <td>
                                     <image class="img-thumbnail" style="width: 50px" src="./img/products/<%=product.getImage()%>" >
                                     <span><%=product.getName()%></span>
+                                </td>
+                                <td>
+                                    <span><%=product.getAmount()%></span>
                                 </td>
                                 <td>
                                     <a href="productdetail.jsp?productId=<%=product.getId()%>">Edit</a> |

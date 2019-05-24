@@ -93,6 +93,8 @@
                                 <div style="padding-left: 1rem ">
                                     <a style="display: block;width: 100%;" class="dropdown-item" href="productmanagement.jsp">Products </a>
                                     <a  style="display: block;width: 100%;" class="dropdown-item" href="billmanagement.jsp">Bills </a>
+                                    <a  style="display: block;width: 100%;" class="dropdown-item" href="categories.jsp">Categories </a>
+                                    
                                 </div>
                                 <%}%>
 

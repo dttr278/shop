@@ -11,7 +11,7 @@ package model;
  */
 public class Categories {
     int id;
-    int id_parent;
+    Integer id_parent;
     String name;
     int id_url;
     String icon;
@@ -35,11 +35,11 @@ public class Categories {
         this.id = id;
     }
 
-    public int getId_parent() {
+    public Integer getId_parent() {
         return id_parent;
     }
 
-    public void setId_parent(int id_parent) {
+    public void setId_parent(Integer id_parent) {
         this.id_parent = id_parent;
     }
     public String getName() {

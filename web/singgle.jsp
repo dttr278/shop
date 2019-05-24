@@ -40,11 +40,44 @@ Author     : phuong nam
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="css/style.css"/>
 
-        <style>
+<!--        <style>
             .abab:hover {
                 -ms-transform: scale(4.5); /* IE 9 */
                 -webkit-transform: scale(4.5); /* Safari 3-8 */
                 transform: scale(4.5); 
+            }
+        </style>-->
+        <style>
+            .abc img {
+                width: 100%; 
+                height: 100%;  
+                transition-duration: 0.5s;
+                /* Safari & Google Chrome */
+                -webkit-transition-duration: 0.5s; 
+                /* Mozilla Firefox */
+                -moz-transition-duration: 0.5s; 
+                /* Opera */
+                -o-transition-duration: 0.5s;
+                /* IE 9 */
+                -ms-transition-duration: 0.5s;
+            }
+
+            /* Hover chu?t vào thumbnail */
+            .abc img:hover {
+                transform: scale(1.5);
+                /* Safari & Google Chrome */
+                -webkit-transform: scale(1.5);
+                /* Mozilla Firefox */
+                -moz-transform: scale(1.5); 
+                /* Opera */
+                -o-transform: scale(1.5);
+                /* IE 9 */
+                -ms-transform: scale(1.5);
+                cursor: auto; 
+            }
+
+            .font_size{
+                font-size: xx-large;
             }
         </style>
     </head>
@@ -88,7 +121,7 @@ Author     : phuong nam
                     <div class="col-md-5 col-md-push-2">    
                         <div id="product-main-img">
                             <div class="product-preview">
-                                <img class="abab" src="./img/products/<%=p.getImage()%>" alt="">
+                                <img class="abc" src="./img/products/<%=p.getImage()%>" alt="">
                             </div>                        
                         </div>
                     </div>

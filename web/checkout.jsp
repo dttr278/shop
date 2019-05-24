@@ -147,10 +147,10 @@
                             </div>
                             <form action="CheckOutServlet" method="POST" >
                                 <div class="form-group">
-                                    <input class="input" type="text" name="address" placeholder="Address" value="<%=u.getAddress() == null ? "" : u.getAddress()%>">
+                                    <input class="input" type="text" name="address" placeholder="Address" value="<%=u.getAddress() == null ? "" : u.getAddress()%>" required>
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="text" name="phone" placeholder="phone" value="<%=u.getPhone() == null ? "" : u.getPhone()%>">
+                                    <input class="input" type="text" name="phone" placeholder="phone" value="<%=u.getPhone() == null ? "" : u.getPhone()%>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="payment">Payment method</label>

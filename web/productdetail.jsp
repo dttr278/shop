@@ -82,13 +82,13 @@
                     <select name="type" class="form-control" id="type">
                         <%for (Categories c : categorieses) {
                                 if (c.getId_parent() > 0) {
-                                    continue;
-                                }
-                                if (c.getId() == product.getId_type()) {%>
+
+                                    if (c.getId() == product.getId_type()) {%>
                         <option value="<%=c.getId()%>" selected><%=c.getName()%></option>
                         <%} else {%>
                         <option value="<%=c.getId()%>" ><%=c.getName()%></option>
                         <%}
+                                }
                             }%>
                     </select>
                 </div>
@@ -116,7 +116,7 @@
                 </div>
                 <div class="form-group">
                     <label  for="promotion">Promotion:</label>
-                    <textarea name="promotion" class="form-control" rows="5" id="promotion"><%=product.getPromotion()%></textarea>
+                    <textarea name="promotion" class="form-control" rows="5" id="promotion"><%=product.getPromotion() != null ? product.getPromotion() : ""%></textarea>
                 </div>
                 <button type="submit" class="btn btn-default">Save</button>
             </form>

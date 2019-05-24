@@ -1,25 +1,19 @@
 <%-- 
-    Document   : productmanagement
-    Created on : Mar 29, 2019, 20:51:59 AM
-    Author     : DO TAN TRUNG
+    Document   : categories
+    Created on : May 24, 2019, 1:39:09 AM
+    Author     : dttr2
 --%>
 
-<%@page import="dao.UserDao"%>
-<%@page import="model.User"%>
+<%@page import="model.Categories"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.CategoriesDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="dao.ProductDao"%>
-<%@page import="model.Product"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Page Title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-        <script src="main.js"></script>
-        <!-- Latest compiled and minified CSS -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
         <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -30,15 +24,11 @@
         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="js/messagebox_script.js"></script>
         <link type="text/css" rel="stylesheet" href="css/messagebox_style.css"/>
-
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
-
         <%
-            User users = (User) session.getAttribute("users");
             final int MAX_ITEM = 10;
-            ProductDao pr = new ProductDao();
             int currentPage;
             String keyword = "";
             if (request.getParameter("keyword") != null) {
@@ -49,9 +39,9 @@
             } else {
                 currentPage = Integer.valueOf(request.getParameter("page"));
             }
-            int count = pr.count();
+            int count = CategoriesDao.count();
             if (!keyword.isEmpty()) {
-                count = pr.getCountSearch(keyword);
+                count = CategoriesDao.countOfSearch(keyword);
             }
             int pageStart, pageEnd;
             int lastPage = count / MAX_ITEM;
@@ -76,63 +66,60 @@
                 }
                 pageEnd = lastPage;
             }
-            List<Product> lProduct;
-            if (!keyword.isEmpty()) {
-                lProduct = pr.getListProductBySearchLimit(keyword, (currentPage - 1) * MAX_ITEM, MAX_ITEM);
-            } else {
-                lProduct = pr.getListProductByPage((currentPage - 1) * MAX_ITEM, MAX_ITEM);
-            }
-        %>
+            List<Categories> lc = new ArrayList<>();
 
+            if (!keyword.isEmpty()) {
+                lc = CategoriesDao.getListBySearchLimit(keyword, (currentPage - 1) * MAX_ITEM, MAX_ITEM);
+            } else {
+                lc = CategoriesDao.getListByPage((currentPage - 1) * MAX_ITEM, MAX_ITEM);
+            }
+//            List<Categories> lparent = CategoriesDao.getMenu();
+        %>
         <div class="container" style="padding: 1em;">
             <div class="row">
-                <!--                <div class="col-sm-3">
-                                    <ul class="list-group">
-                                        <li class="list-group-item active">
-                                            <a href="productmanagement.jsp"  style="color: white;">Products management</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="usermanagement.jsp">Users management</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="billmanagement.jsp">Bills management</a>
-                                        </li>
-                                    </ul>
-                                </div>-->
-                <!--<div class="col-sm-9" style="background-color:lavenderblush;">-->
-                <div>
-                    <button type="button" class="btn btn-default" style="margin-bottom: 10px;">
-                        <a href="productdetail.jsp"><span class="glyphicon glyphicon-plus"> new</span></a>
-                    </button>
-                    <div style="float: right">
-                        <input id="inputSearch" type="text" placeholder="search" 
-                               <%if (!keyword.isEmpty())%>
-                               value="<%=keyword%>">
-                        <button id="btnSearch" type="button" class="btn btn-default" >
-                            Search  
-                        </button>
-                    </div>
+                <button type="button" class="btn btn-default" style="margin-bottom: 10px;">
+                    <a href="categori.jsp"><span class="glyphicon glyphicon-plus"> new</span></a>
+                </button>
+                <div style="float: right">
+                    <input id="inputSearch" type="text" placeholder="search by username" 
+                           <%if (!keyword.isEmpty())%>
+                           value="<%=keyword%>">
+                    <button id="btnSearch" type="button" class="btn btn-default" >Search</button>
+                </div>
+                <div >
                     <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col">Id</th>
                                 <th scope="col">Name</th>
-                                <th scope="col" style="width: 10em;">Amount</th>
+                                <th scope="col">Parent</th>
                                 <th scope="col" style="width: 10em;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <%for (Product product : lProduct) {%>
+                            <%for (Categories c : lc) {%>
                             <tr>
                                 <td>
-                                    <image class="img-thumbnail" style="width: 50px" src="./img/products/<%=product.getImage()%>" >
-                                    <span><%=product.getName()%></span>
+                                    <span>#<%=c.getId()%></span>
                                 </td>
                                 <td>
-                                    <span><%=product.getAmount()%></span>
+                                    <span><%=c.getName()%></span>
                                 </td>
                                 <td>
-                                    <a href="productdetail.jsp?productId=<%=product.getId()%>">Edit</a> |
-                                    <a href="#" onclick='onDeleteClick("<b><%=product.getName()%></b>will detete",<%=product.getId()%>)'>Delete</a>
+                                    <%
+                                        String parent = "";
+                                        if (c.getId_parent() != null) {
+                                            Categories ct = CategoriesDao.getCate(c.getId_parent());
+                                            parent = ct.getName();
+                                        }
+                                    %>
+                                    <span><%=parent%></span>
+                                </td>
+
+
+                                <td>
+                                    <a href="categori.jsp?id=<%=c.getId()%>">View</a> 
+                                    <!--<a href="#" onclick='onDeleteClick("<b><%="#" + c.getName()%></b>will detete",<%=c.getId()%>)'>Delete</a>-->
                                 </td>
                             </tr>
                             <%}%>
@@ -144,9 +131,9 @@
                             <li class="page-item ">
                                 <a class="page-link" 
                                    <%if (!keyword.isEmpty()) {%>
-                                   href="productmanagement.jsp?page=1&keyword=<%=keyword.trim()%>"
+                                   href="categories.jsp?page=1&keyword=<%=keyword.trim()%>"
                                    <%} else {%>
-                                   href="productmanagement.jsp?page=1"
+                                   href="categories.jsp?page=1"
                                    <%}%>
                                    >First</a>
                             </li>
@@ -155,37 +142,37 @@
                             <li class="page-item <%if (i == currentPage) {%>active<%}%>">
                                 <a class="page-link" 
                                    <%if (!keyword.isEmpty()) {%>
-                                   href="productmanagement.jsp?page=<%=i%>&keyword=<%=keyword.trim()%>"
+                                   href="categories.jsp?page=<%=i%>&keyword=<%=keyword.trim()%>"
                                    <%} else {%>
-                                   href="productmanagement.jsp?page=<%=i%>"
+                                   href="categories.jsp?page=<%=i%>"
                                    <%}%>><%=i%></a>
                             </li>
                             <%}%>
+
                             <%if (currentPage < lastPage) {%>
                             <li class="page-item ">
                                 <a class="page-link" 
                                    <%if (!keyword.isEmpty()) {%>
-                                   href="productmanagement.jsp?page=<%=lastPage%>&keyword=<%=keyword.trim()%>"
+                                   href="categories.jsp?page=<%=lastPage%>&keyword=<%=keyword.trim()%>"
                                    <%} else {%>
-                                   href="productmanagement.jsp?page=<%=lastPage%>"
+                                   href="categories.jsp?page=<%=lastPage%>"
                                    <%}%>
                                    >Last</a>
                             </li>
                             <%}%>
-                           
                         </ul>
                     </nav>
                 </div>
             </div>
         </div>
-
+        <jsp:include page="footer.jsp"></jsp:include>
         <script>
             $("#btnSearch").click(function () {
-                window.location.href = "productmanagement.jsp?keyword=" + $("#inputSearch").val();
+                window.location.href = "categories.jsp?keyword=" + $("#inputSearch").val();
             });
-            function onDeleteClick(ms, productId) {
+            function onDeleteClick(ms, id) {
                 doMessageBox(ms, function () {
-                    $.post("DeleteProduct?productId=" + productId)
+                    $.post("DeleteCategories?id=" + id)
                             .done(function () {
                                 doMessageBox("Deleted!", function () {
                                     window.location.reload();
@@ -197,6 +184,5 @@
                 });
             }
         </script>
-        <jsp:include page="footer.jsp"></jsp:include>
     </body>
 </html>

@@ -5,10 +5,11 @@
  */
 package controller;
 
-import dao.ProductDao;
+import static controller.UpdateProduct.SAVE_DIRECTORY;
+import dao.CategoriesDao;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -16,23 +17,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import model.Product;
+import model.Categories;
 
 /**
  *
- * @author DO TAN TRUNG
+ * @author dttr2
  */
-@WebServlet(name = "UpdateProduct", urlPatterns = {"/UpdateProduct"})
+@WebServlet(name = "UpdateCategories", urlPatterns = {"/UpdateCategories"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
-public class UpdateProduct extends HttpServlet {
+public class UpdateCategories extends HttpServlet {
 
-    public static final String SAVE_DIRECTORY = "img/products";
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdateCategories</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateCategories at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -46,6 +67,7 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -60,55 +82,52 @@ public class UpdateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            ProductDao dao = new ProductDao();
             int id = Integer.valueOf(request.getParameter("id"));
-            Product product;
+            Categories c;
             if (id > 0) {
-                product = dao.getProduct(id);
+                c = CategoriesDao.getCate(id);
             } else {
-                product = new Product();
+                c = new Categories();
             }
             String name = request.getParameter("name");
-            int type = Integer.valueOf(request.getParameter("type"));
-            int amount = Integer.valueOf(request.getParameter("amount"));
-            double value = Double.valueOf(request.getParameter("value"));
-            float promotionValue = Float.valueOf(request.getParameter("promotionValue"));
-            String detail = request.getParameter("detail");
-            detail = new String(detail.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            String promotion = request.getParameter("promotion");
-            promotion = new String(promotion.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            Integer parent = Integer.valueOf(request.getParameter("parent"));
+            if (parent < 0) {
+                parent = null;
+            }
             String fileName = uploadImg(request);
             if (fileName != null) {
-                product.setImage(fileName);
+                c.setIcon(fileName);
             }
 
-            product.setDetail(detail);
-            product.setId_type(type);
-            product.setStatus(0);
-            product.setNew_product(1);
-            product.setName(name);
-            product.setValue(value);
-            product.setPromotion_price(promotionValue);
-            product.setPromotion(promotion);
-            product.setAmount(amount);
+            c.setId_parent(parent);
+            c.setName(name);
             if (id > 0) {
-                dao.updateProduct(product);
+                CategoriesDao.update(c);
             } else {
-                id = dao.insertProductGetId(product);
+                id = CategoriesDao.insert(c);
                 if (id < 1) {
                     response.getWriter().println("insert error");
                 }
             }
-
 //            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/productdetail.jsp?productId="+id);
 //            dispatcher.forward(request, response);
-            response.sendRedirect("productdetail.jsp?productId=" + id);
+            response.sendRedirect("categori.jsp?id=" + id);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error: " + e.getMessage());
             response.getWriter().println("Error: " + e.getMessage());
         }
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
     private String uploadImg(HttpServletRequest request) throws IOException, ServletException {
         // Đường dẫn tuyệt đối tới thư mục gốc của web app.
@@ -164,15 +183,4 @@ public class UpdateProduct extends HttpServlet {
         }
         return null;
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

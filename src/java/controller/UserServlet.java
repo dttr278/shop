@@ -40,11 +40,13 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         Object obj = request.getParameter("logout");
         if (obj != null) {
-            request.getSession().removeAttribute("users");
-            request.getSession().removeAttribute("cart");
             Cookie cookie = new Cookie("userId", "");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
+            Cookie cookie1 = new Cookie("cart", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie1);
+            request.getSession().invalidate();
 
         }
 //        RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp");

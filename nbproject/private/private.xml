@@ -3,17 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/workspace/shop/src/java/controller/Logout.java</file>
-            <file>file:/D:/workspace/shop/web/search.jsp</file>
-            <file>file:/D:/workspace/shop/src/java/filter/AuthorizationFilter.java</file>
-            <file>file:/D:/workspace/shop/src/java/filter/LoginFilter.java</file>
+            <file>file:/D:/workspace/shop/src/java/dao/CategoriesDao.java</file>
+            <file>file:/D:/workspace/shop/web/categori.jsp</file>
+            <file>file:/D:/workspace/shop/src/java/listener/SessionListener.java</file>
             <file>file:/D:/workspace/shop/src/java/dao/CommentDao.java</file>
-            <file>file:/D:/workspace/shop/web/register.jsp</file>
-            <file>file:/D:/workspace/shop/src/java/controller/ChangeInfo.java</file>
-            <file>file:/D:/workspace/shop/src/java/dao/UserDao.java</file>
-            <file>file:/D:/workspace/shop/web/singgle.jsp</file>
+            <file>file:/D:/workspace/shop/web/productmanagement.jsp</file>
+            <file>file:/D:/workspace/shop/src/java/model/Bill.java</file>
+            <file>file:/D:/workspace/shop/src/java/controller/UpdateProduct.java</file>
+            <file>file:/D:/workspace/shop/web/productdetail.jsp</file>
             <file>file:/D:/workspace/shop/src/java/controller/UserServlet.java</file>
-            <file>file:/D:/workspace/shop/web/login.jsp</file>
+            <file>file:/D:/workspace/shop/src/java/model/Categories.java</file>
+            <file>file:/D:/workspace/shop/web/billmanagement.jsp</file>
+            <file>file:/D:/workspace/shop/src/java/filter/LoginFilter.java</file>
+            <file>file:/D:/workspace/shop/src/java/filter/AuthorizationFilter.java</file>
+            <file>file:/D:/workspace/shop/src/java/model/Comment.java</file>
+            <file>file:/D:/workspace/shop/web/checkout.jsp</file>
+            <file>file:/D:/workspace/shop/web/header.jsp</file>
+            <file>file:/D:/workspace/shop/web/categories.jsp</file>
+            <file>file:/D:/workspace/shop/src/java/controller/UpdateUser.java</file>
+            <file>file:/D:/workspace/shop/src/java/controller/UpdateCategories.java</file>
+            <file>file:/D:/workspace/shop/web/singgle.jsp</file>
+            <file>file:/D:/workspace/shop/web/footer.jsp</file>
             <file>file:/D:/workspace/shop/src/java/dao/BillDao.java</file>
         </group>
     </open-files>
